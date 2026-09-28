@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{%block title%}Title{%endblock%}</title>
+</head>
+<body>
+  {% block nav %}
+  <nav>
+    <a href="{%url 'core:home' %}">Home</a>
+    {% if not user.is_authenticated %}
+      <a href="{%url 'login' %}">Log In or Sign Up</a>
+    {% else %}
+      <a href="{%url 'users:logout_confirm' %}">Log Out</a>
+    {% endif %}
+  </nav>
+  {% endblock %}
+
+  {% block content %}
+  {% endblock %}
+</body>
+</html>
