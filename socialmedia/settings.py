@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-)383k3ac(%i88!g7f8!(uodu)#0-(f^z9u7=g+h)6n_&$o-6&3
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+ 
+AUTH_USER_MODEL = 'users.UserProfile'
 
 # Application definition
 
@@ -77,8 +78,12 @@ WSGI_APPLICATION = 'socialmedia.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'socialmedia',
+        'USER': 'postgres',
+        'PASSWORD': 'muhammad307',
+        'HOST': '127.0.0.1',
+        'PORT': '5432'
     }
 }
 
@@ -117,7 +122,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/' # prefix for url in brower 'https:/xyz.com/static'
+STATICFILES_DIRS = [ # location in disk 'C:/Users/User/project/static'
+    BASE_DIR / "static",
+]
 
 # login
 LOGIN_REDIRECT_URL = "/"
