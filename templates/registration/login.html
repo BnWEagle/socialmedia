@@ -5,9 +5,9 @@
   <p>message: {{message}}</p>
 {% endif %}
 <form method="post">
-    {{form}}
     {% csrf_token %}
-    <button type="submit">Submit</button>
+    {{form}}
+    <button type="submit">Log In</button>
     Don't have an account yet? <a href="{%url 'users:signup'%}">Sign Up</a>
 </form>
 {% endblock %}

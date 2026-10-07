@@ -3,6 +3,6 @@
 {% block content %} 
   <form action="{% url 'logout' %}" method="post">
     {% csrf_token %}
-    <button>Sure you want to log out</button>
+    <button>Sure you want to log out?</button>
   </form>
 {% endblock %}

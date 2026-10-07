@@ -8,11 +8,12 @@
 <body>
   {% block nav %}
   <nav>
+    <!--todo: divide the navigation bar to left and right -->
     <a href="{%url 'core:home' %}">Home</a>
-    {% if not user.is_authenticated %}
-      <a href="{%url 'login' %}">Log In or Sign Up</a>
-    {% else %}
+    {% if user.is_authenticated %}
       <a href="{%url 'users:logout_confirm' %}">Log Out</a>
+    {% else %}
+    <a href="{%url 'login' %}">Log In or Sign Up</a>
     {% endif %}
   </nav>
   {% endblock %}
