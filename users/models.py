@@ -7,7 +7,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 
 class ProfileManager(BaseUserManager):
 
-    def create_superuser(self, email, user_name, first_name, last_name, profile_picture, password, **other_fields):
+    def create_superuser(self, email, user_name, first_name, last_name, password, profile_picture=None, **other_fields):
 
         other_fields.setdefault('is_staff', True)
         other_fields.setdefault('is_superuser', True)
@@ -30,7 +30,7 @@ class ProfileManager(BaseUserManager):
             **other_fields
         )
 
-    def create_user(self, email, user_name, first_name, last_name, profile_picture, password, **other_fields):
+    def create_user(self, email, user_name, first_name, last_name, password, profile_picture=None, **other_fields):
 
         if not email:
             raise ValueError(_('You must provide an email address'))
@@ -54,12 +54,13 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
         'about'), max_length=500, blank=True)
     profile_picture = models.ImageField(
         upload_to="profile_pics/", 
+        null=True,
         blank=True,
         validators = [
             FileExtensionValidator(allowed_extensions=[
                 "png", "jpg", "svg"
             ])
-        ]
+        ],
     )
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

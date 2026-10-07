@@ -4,27 +4,27 @@ from .models import UserProfile
 
 
 class SignupForm(UserCreationForm):
-    email = forms.EmailInput()
+    email = forms.EmailField()
     user_name = forms.CharField(
         max_length=50,
-        min_length=10,
+        min_length=2,
     )
     first_name = forms.CharField(
         max_length=150,
-        min_length=10,
+        min_length=2,
     )
     last_name = forms.CharField(
         max_length=150,
-        min_length=10,
+        min_length=2,
     )
     password1 = forms.CharField(
         max_length=50,
-        min_length=10,
+        min_length=2,
         widget = forms.PasswordInput(),
     )
     password2 = forms.CharField(
         max_length=50,
-        min_length=10,
+        min_length=2,
         widget = forms.PasswordInput(),
     )
     profile_picture = forms.ImageField(
@@ -36,16 +36,7 @@ class SignupForm(UserCreationForm):
         fields = ( "user_name", "first_name", "last_name", "email", "password1", "password2", "profile_picture" )
 
 class LoginForm(AuthenticationForm):
-    email = forms.CharField(
-        max_length=50,
-        min_length=10,
+    username = forms.EmailField(
+        label='Email',
+        widget=forms.EmailInput()
     )
-    password1 = forms.CharField(
-        max_length=50,
-        min_length=10,
-        widget = forms.PasswordInput(),
-    )
-
-    class Meta:
-        model = UserProfile
-        fields = ( "email", "password1" )
