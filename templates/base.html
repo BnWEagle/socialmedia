@@ -4,12 +4,11 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{%block title%}Title{%endblock%}</title>
+	<title>{%block title%}{%endblock%}</title>
 </head>
 <body>
   {% block nav %}
   <nav>
-    <!--todo: divide the navigation bar to left and right -->
     {%block left_nav%}
     <a href="{%url 'core:home' %}">Home</a>
     {%endblock%}
@@ -17,11 +16,14 @@
     {%block right_nav%}
       {% if user.is_authenticated %}
         {% if user.profile_picture %}
-          <img width=50 src="{{ user.profile_picture.url }}" alt="">
+          <a href="{% url 'users:logout_confirm' %}"> 
+            <img width=50 src="{{ user.profile_picture.url }}" alt="">
+          </a>
         {% else %}
-          <a href="{% url 'users:logout_confirm' %}"> <img width=50 src="{% static 'profile_pics/default.svg'%}" alt=""></a>
+          <a href="{% url 'users:logout_confirm' %}"> 
+            <img width=50 src="{% static 'profile_pics/default.svg'%}" alt="">
+          </a>
         {% endif %}
-        <!--<a href="{%url 'users:logout_confirm' %}">Log Out</a>-->
       {% else %}
         <a href="{%url 'users:login' %}">Log In or Sign Up</a>
       {% endif %}

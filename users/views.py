@@ -10,11 +10,13 @@ from .forms import *
 # Create your views here.
 def signup(request):
     if request.method == "POST":
-        form = SignupForm(request.POST)
+        form = SignupForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             user_login(request, user)
             return redirect("core:home")
+        else:
+            print(form.errors)
     else:
         form = SignupForm()
     return render(
