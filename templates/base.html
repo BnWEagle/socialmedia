@@ -10,17 +10,20 @@
   {% block nav %}
   <nav>
     {%block left_nav%}
-    <a href="{%url 'core:home' %}">Home</a>
+      <a href="{%url 'core:home' %}">Home</a>
     {%endblock%}
     
     {%block right_nav%}
       {% if user.is_authenticated %}
+        <a href="{% url 'users:logout_confirm' %}"> 
+          <img width=50 src="{% static 'page_assets/logout.svg' %}" alt="">
+        </a>
         {% if user.profile_picture %}
-          <a href="{% url 'users:logout_confirm' %}"> 
+          <a href="{% url 'users:update_profile' %}"> 
             <img width=50 src="{{ user.profile_picture.url }}" alt="">
           </a>
         {% else %}
-          <a href="{% url 'users:logout_confirm' %}"> 
+          <a href="{% url 'users:update_profile' %}"> 
             <img width=50 src="{% static 'profile_pics/default.svg'%}" alt="">
           </a>
         {% endif %}

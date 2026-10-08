@@ -2,6 +2,7 @@ from django.contrib.auth import (
     login as user_login,
     logout as user_logout,
 )
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from .forms import *
@@ -23,6 +24,20 @@ def signup(request):
         request, "registration/signup.html", {"page_title": "Sign Up", "form": form}
     )
 
+@login_required
+def update_profile(request):
+    if request.method == "POST":
+        form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect("core:home")
+    else:
+        form = ProfileUpdateForm(instance=request.user)
+
+    return render(
+        request, "registration/profile_update.html", {"page_title": "Edit Profile", "form": form}
+    )
+        
 def login(request):
     if request.method == "POST":
         form = LoginForm(request, data=request.POST)
