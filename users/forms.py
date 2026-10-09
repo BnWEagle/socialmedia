@@ -1,5 +1,10 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm, UserChangeForm, UserCreationForm
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    PasswordChangeForm,
+    UserChangeForm,
+    UserCreationForm,
+)
 
 from .models import UserProfile
 
@@ -20,12 +25,11 @@ class SignupForm(UserCreationForm):
     )
     about = forms.CharField(
         required=False,
-        widget=forms.Textarea(attrs={'rows': 3}),
+        widget=forms.Textarea(attrs={"rows": 3}),
     )
     profile_picture = forms.ImageField(
         required=False,
     )
-    
 
     class Meta:
         model = UserProfile
@@ -55,17 +59,22 @@ class ProfileUpdateForm(UserChangeForm):
         min_length=2,
     )
     about = forms.CharField(
-        required = False,
-        widget = forms.Textarea(attrs={'rows': 3}),
+        required=False,
+        widget=forms.Textarea(attrs={"rows": 3}),
     )
     password = None
-    
+
     class Meta:
         model = UserProfile
-        fields = ( 'user_name', 'first_name', 'last_name', 'about', 'profile_picture' )
+        fields = ("user_name", "first_name", "last_name", "about", "profile_picture")
+
 
 class LoginForm(AuthenticationForm):
     username = forms.EmailField(
-        label="Email", 
+        label="Email",
         widget=forms.EmailInput(),
     )
+
+
+class ChangePassword(PasswordChangeForm):
+    model = UserProfile
