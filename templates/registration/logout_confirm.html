@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}{{page_title}}{% endblock %}
 {% block content %} 
+  <h1>Sure you want to log out?</h1>
   <form action="{% url 'users:logout' %}" method="post">
     {% csrf_token %}
-    <button>Sure you want to log out?</button>
+    <button>Yes</button>
+    <a href="{% url 'core:home' %}">Cancel</a>
   </form>
 {% endblock %}

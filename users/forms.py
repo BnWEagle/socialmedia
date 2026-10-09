@@ -11,11 +11,11 @@ class SignupForm(UserCreationForm):
         min_length=2,
     )
     first_name = forms.CharField(
-        max_length=150,
+        max_length=50,
         min_length=2,
     )
     last_name = forms.CharField(
-        max_length=150,
+        max_length=50,
         min_length=2,
     )
     about = forms.CharField(
@@ -47,14 +47,15 @@ class ProfileUpdateForm(UserChangeForm):
         min_length=2,
     )
     first_name = forms.CharField(
-        max_length=150,
+        max_length=50,
         min_length=2,
     )
     last_name = forms.CharField(
-        max_length=150,
+        max_length=50,
         min_length=2,
     )
     about = forms.CharField(
+        required = False,
         widget = forms.Textarea(attrs={'rows': 3}),
     )
     password = None
