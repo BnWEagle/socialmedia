@@ -7,6 +7,7 @@ from django.contrib.auth.models import (
 )
 from django.core.validators import FileExtensionValidator
 from django.db import models
+from django.templatetags.static import static
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -79,7 +80,6 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     start_date = models.DateTimeField(default=timezone.now)
     about = models.TextField(_("about"), max_length=500, blank=True)
     profile_picture = models.ImageField(
-        default="users/default.svg",
         upload_to="profile_pics/",
         null=True,
         blank=True,
@@ -96,6 +96,13 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["user_name"]
+
+    @property
+    def profile_pic_url(self):
+        if self.profile_picture:
+            return self.profile_picture.url
+        else:
+            return static("profile_pics/default_pfp.svg")
 
     def __str__(self):
         return self.user_name

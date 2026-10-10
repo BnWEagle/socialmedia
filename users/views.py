@@ -106,3 +106,26 @@ def delete_profile(request):
     return render(
         request, "registration/delete_account.html", {"page_title": "Delete Account"}
     )
+
+@login_required
+def toggle_follow(request, username):
+    followed = UserProfile.objects.get(user_name = username)
+    user = UserProfile.objects.get(user_name = request.user.user_name)
+    following = user.following.all()
+
+    if followed != user:
+        if followed not in following:
+            user.following.add(followed)
+        else:
+            user.following.remove(followed)
+        
+    return redirect("core:home")    
+    
+
+def list_profiles(request):
+    users = UserProfile.objects.filter(is_staff=False)
+    return render(request, "users/list_profiles.html", {"page_title": "List profiles", "users": users}) 
+
+def view_profile(request, user_id):
+    u = UserProfile.objects.get(id=user_id)
+    return render(request, "users/view_profile.html", {"page_title": u.user_name, "u": u}) 
