@@ -79,6 +79,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     start_date = models.DateTimeField(default=timezone.now)
     about = models.TextField(_("about"), max_length=500, blank=True)
     profile_picture = models.ImageField(
+        default="users/default.svg",
         upload_to="profile_pics/",
         null=True,
         blank=True,

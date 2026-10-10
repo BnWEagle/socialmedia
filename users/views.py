@@ -102,7 +102,7 @@ def delete_profile(request):
     if request.method == "POST":
         UserProfile.objects.get(id=user.id).delete()
         return redirect("core:home")
-        
+
     return render(
         request, "registration/delete_account.html", {"page_title": "Delete Account"}
     )
