@@ -12,4 +12,7 @@ urlpatterns = [
     path("edit/", views.update_profile, name="update_profile"),
     path("change_password/", views.change_password, name="change_password"),
     path("delete_profile/", views.delete_profile, name="delete_profile"),
+    path("view_profile/<str:username>", views.view_profile, name="view_profile"),
+    path("toggle_follow/<str:username>", views.toggle_follow, name="toggle_follow"),
+    path("search_profiles/", views.search_profiles, name="search_profiles"),
 ]

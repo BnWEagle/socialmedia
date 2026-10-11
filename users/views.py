@@ -1,12 +1,11 @@
 from django.contrib.auth import login, logout
-
-
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from .forms import *
 
 # Create your views here.
+
 
 def user_signup(request):
     if request.method == "POST":
@@ -107,10 +106,11 @@ def delete_profile(request):
         request, "registration/delete_account.html", {"page_title": "Delete Account"}
     )
 
+
 @login_required
 def toggle_follow(request, username):
-    followed = UserProfile.objects.get(user_name = username)
-    user = UserProfile.objects.get(user_name = request.user.user_name)
+    followed = UserProfile.objects.get(user_name=username)
+    user = UserProfile.objects.get(user_name=request.user.user_name)
     following = user.following.all()
 
     if followed != user:
@@ -118,14 +118,31 @@ def toggle_follow(request, username):
             user.following.add(followed)
         else:
             user.following.remove(followed)
-        
-    return redirect("core:home")    
-    
 
-def list_profiles(request):
-    users = UserProfile.objects.filter(is_staff=False)
-    return render(request, "users/list_profiles.html", {"page_title": "List profiles", "users": users}) 
+    referer = request.META.get("HTTP_REFERER")
+    if not referer:
+        referer = redirect("core:home")
+    return redirect(referer)
 
-def view_profile(request, user_id):
-    u = UserProfile.objects.get(id=user_id)
-    return render(request, "users/view_profile.html", {"page_title": u.user_name, "u": u}) 
+
+def search_profiles(request):
+    if request.method == "GET":
+        search_query = request.GET.get("search_query")
+
+        users = UserProfile.objects.filter(user_name__icontains=search_query).filter(
+            is_staff=False
+        )
+        return render(request, "users/search_profiles.html", {"users": users})
+
+    return render(
+        request,
+        "users/search_profiles.html",
+        {"page_title": "Search profiles", "users": users},
+    )
+
+
+def view_profile(request, username):
+    u = UserProfile.objects.get(user_name=username)
+    return render(
+        request, "users/view_profile.html", {"page_title": u.user_name, "u": u}
+    )

@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
+
 {% block title %}{{page_title}}{% endblock %}
 {% block content %}
   <h1>Home page</h1>
+  {% if user.is_authenticated %}
+    <p>Welcome back, {{user.user_name}}</p>
+    <form method="GET" action="{% url 'users:search_profiles' %}">
+      <input name="search_query" type="text" placeholder="Find new friends">
+      <button>Search</button>
+    </form>
+  {% endif %}
+
 {% endblock %}
