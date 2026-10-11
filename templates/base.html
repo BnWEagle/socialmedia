@@ -1,20 +1,32 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>{%block title%}Title{%endblock%}</title>
+	<title>{%block title%}{%endblock%}</title>
 </head>
 <body>
   {% block nav %}
   <nav>
-    <!--todo: divide the navigation bar to left and right -->
-    <a href="{%url 'core:home' %}">Home</a>
-    {% if user.is_authenticated %}
-      <a href="{%url 'users:logout_confirm' %}">Log Out</a>
-    {% else %}
-    <a href="{%url 'login' %}">Log In or Sign Up</a>
-    {% endif %}
+    {%block left_nav%}
+      <a href="{%url 'core:home' %}">Home</a>
+    {%endblock%}
+    
+    {%block right_nav%}
+      {% if user.is_authenticated %}
+        <a href="{% url 'users:logout_confirm' %}"> 
+          <img width=50 src="{% static 'page_assets/logout.svg' %}" alt="">
+        </a>
+        <a href="{% url 'users:view_profile' user.user_name %}"> 
+          <img width=50 src="{{ user.profile_pic_url }}" alt="">
+        </a>
+      {% else %}
+        <a href="{%url 'users:login' %}">
+          <img width=50 src="{% static 'page_assets/login.svg' %}" alt="">
+        </a>
+      {% endif %}
+    {%endblock%}
   </nav>
   {% endblock %}
 
