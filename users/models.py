@@ -106,3 +106,17 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.user_name
+
+
+class Post(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    author = models.ForeignKey(UserProfile, on_delete = models.CASCADE, related_name='posts')
+    content = models.TextField(max_length=1000)
+
+    created_at = models.DateTimeField(default = timezone.now)
+    likes = models.ManyToManyField(UserProfile, blank=True, related_name ='liked_posts')
+
+    def __str__(self):
+        return f"{self.author.user_name} - {self.content[0:20]}"
+
+    
