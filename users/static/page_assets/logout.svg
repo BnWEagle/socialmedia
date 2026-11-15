@@ -1,0 +1,17 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <circle cx="64" cy="64" r="64" fill="#E5E7EB"></circle>
+
+  <!-- Centered door frame -->
+  <path d="M62 34H81Q89 34 89 42V54
+           M89 74V86Q89 94 81 94H62" fill="none" stroke="#9CA3AF" stroke-width="6" stroke-linejoin="round"></path>
+
+  <!-- Door centered vertically -->
+  <path d="M69 27L42 37V91L69 101Z" fill="#9CA3AF" stroke="#9CA3AF" stroke-width="2" stroke-linejoin="round"></path>
+
+  <!-- Handle -->
+  <circle cx="62" cy="64" r="3.5" fill="#E5E7EB"></circle>
+
+  <!-- Logout arrow -->
+  <path d="M83 64H116M106 54L116 64L106 74" fill="none" stroke="#6B7280" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>

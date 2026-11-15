@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}{{page_title}}{% endblock %}
+{% block content %}
+  {% if user.id == u.id %}
+    <a href="{% url 'users:update_profile' %}">Edit your profile</a>
+  {% else %}
+    <p>
+      <a href="{% url 'users:toggle_follow' u.user_name %}">
+        {% if u not in user.following.all %}
+            <button>Follow</button>
+        {% else %}
+            <button>Unfollow</button>
+        {% endif %}
+      </a>
+    </p>
+  {% endif %}
+  
+  <div>
+    <h2>Profile Picture</h2>
+    <img width=250 src="{{u.profile_pic_url}}" alt="">
+  </div>
+  <hr>
+
+  <div>
+    <h2>Username</h2>
+    <p>{{u.user_name}}</p>
+  </div>
+  <hr>
+   
+  <div>
+    <h2>First name</h2>
+    <p>{{u.first_name}}</p>
+  </div>
+  <hr>
+
+  <div>
+    <h2>Last name</h2>
+    <p>{{u.last_name}}</p>
+  </div>
+  <hr>
+
+  <div>
+    <h2>Created at</h2>
+    <p>{{u.start_date}}</p>
+  </div>
+  <hr>
+
+  <div>
+    <h2>About</h2>
+    <p>{{u.about}}</p>
+  </div>
+  <hr>
+
+  <div>
+    <h2>Followers</h2>
+    <p>
+      <ul>
+        {% for f in u.followers.all %}
+          <li>
+            <a href="{% url 'users:view_profile' f.user_name%}">{{f.user_name}}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </p>
+  </div>
+  <hr>
+    
+  <div>
+    <h2>Following</h2>
+    <ul>
+      {% for f in u.following.all %}
+        <li>
+          <a href="{% url 'users:view_profile' f.user_name%}">{{f.user_name}}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <hr>
+    {% endblock %}

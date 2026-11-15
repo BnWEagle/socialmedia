@@ -16,14 +16,18 @@
     {%block right_nav%}
       {% if user.is_authenticated %}
         <a href="{% url 'users:logout_confirm' %}"> 
-          <img width=50 src="{% static 'page_assets/logout.svg' %}" alt="">
+          <img width=50 src="{% static 'page_assets/logout.svg' %}" alt="Logout">
         </a>
         <a href="{% url 'users:view_profile' user.user_name %}"> 
-          <img width=50 src="{{ user.profile_pic_url }}" alt="">
+          {% if 'user.profile_pic_url' %}
+            <img width=50 src="{{ user.profile_pic_url }}" alt="">
+          {% else %}
+            view profile
+          {% endif %}
         </a>
       {% else %}
         <a href="{%url 'users:login' %}">
-          <img width=50 src="{% static 'page_assets/login.svg' %}" alt="">
+          <img width=50 src="{% static 'page_assets/login.svg' %}" alt="Login">
         </a>
       {% endif %}
     {%endblock%}

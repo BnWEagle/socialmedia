@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}{{page_title}}{% endblock %}
+{% block content %}
+  <form enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    {{form}}
+    <button>Save</button>
+  </form>
+
+  <p>Forgot your password? <a href="{% url 'users:change_password' %}">Change it here</a></p>
+  <p><a href="{% url 'users:delete_profile' %}">Delete your account</a></p>
+{% endblock %}

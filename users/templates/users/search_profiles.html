@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}{{page_title}}{% endblock %}
+{% block content %}
+  {% if not users %}
+    <h2>No other users yet</h2>
+  {% endif %}
+
+  {% for u in users %}
+      <div>
+        {% if u != user %}
+          <a href="{% url 'users:view_profile' u.user_name %}">
+            <h2>{{u.user_name}}</h2>
+          </a>
+          <img width=100 src="{{ u.profile_pic_url }}" alt="">
+          <p>
+            <a href="{% url 'users:toggle_follow' u.user_name %}">
+              {% if u not in user.following.all %}
+                  <button>Follow</button>
+              {% else %}
+                  <button>Unfollow</button>
+              {% endif %}
+            </a>
+          </p>
+          <hr>
+        {% endif %}
+      </div>
+  {% endfor %}
+{% endblock %}
